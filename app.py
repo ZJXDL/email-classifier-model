@@ -1,28 +1,25 @@
 import streamlit as st
 import joblib
 
-# Load the trained model
-model = joblib.load('model/email_model.pkl')
+vectorizer = joblib.load('model/tfidf_vectorizer.pkl')
+clf = joblib.load('model/classifier.pkl')
 
-# Page title
 st.title("📧 Smart Email Classifier")
 st.write("Paste any email below — I’ll tell you if it’s **spam** or **legit**!")
 
-# Text input box
 user_input = st.text_area("Paste email text here:", height=150)
 
-# Button to classify
 if st.button("Classify"):
     if user_input.strip() == "":
         st.warning("Please paste some text!")
     else:
-        prediction = model.predict([user_input])[0]
-        confidence = max(model.predict_proba([user_input])[0]) * 100
+        X = vectorizer.transform([user_input])
+        pred = clf.predict(X)[0]
+        prob = max(clf.predict_proba(X)[0]) * 100
 
-        if prediction == "spam":
-            st.error(f"🚨 SPAM! (Confidence: {confidence:.1f}%)")
+        if pred == "spam":
+            st.error(f"🚨 SPAM! (Confidence: {prob:.1f}%)")
         else:
-            st.success(f"✅ LEGIT EMAIL! (Confidence: {confidence:.1f}%)")
+            st.success(f"✅ LEGIT EMAIL! (Confidence: {prob:.1f}%)")
 
-# Optional footer
 st.caption("Built with ❤️ by [Your Name] — ML Engineer")
