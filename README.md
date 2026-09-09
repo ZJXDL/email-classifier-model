@@ -23,9 +23,6 @@ This isn’t just a toy project — it’s a complete ML pipeline:
 Exactly what entry-level ML engineers do at startups and tech companies.  
 I built this in under 2 days — no GPU, no cloud credits, no complex frameworks.
 
-## 📹 Demo Video
-[Watch me use it here](https://www.loom.com/share/your-link) *(record this after deployment!)*
-
 ## 📂 How to Run Locally
 1. Clone this repo  
 2. Install dependencies:  
